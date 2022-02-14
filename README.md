@@ -16,11 +16,11 @@ Nest Js, БД MongoDb, документация Swagger по адресу <API_S
 
 ### Переменные окружения
 
-NGINX_HOST - домен на котором будет размещаться сервис
-NGINX_PORT - порт сервиса
-NGINX_PORTS - Порты NGINX внутренний внешний
-API_SECRET_KEY - секртетный ключ api для jwt
-API_SWAGGER_SERVER_API_URL - url api для Swagger, согласно текущей конфигурации Docker Compose - '/api'
+NGINX_HOST - домен на котором будет размещаться сервис,
+NGINX_PORT - порт сервиса,
+NGINX_PORTS - Порты NGINX внутренний внешний,
+API_SECRET_KEY - секртетный ключ api для jwt,
+API_SWAGGER_SERVER_API_URL - url api для Swagger, согласно текущей конфигурации Docker Compose - '/api'.
 
 ## Запуск с Docker Compose
 
