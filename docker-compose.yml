@@ -1,0 +1,64 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile.prod
+      context: ./frontend
+    container_name: technical-skill-training-frontend
+    restart: unless-stopped
+    networks:
+      - technical-skill-training-network
+
+  api:
+    build: ./api
+    container_name: technical-skill-training-api
+    command: npm run start
+    restart: unless-stopped
+    env_file:
+      - ./.env.dev
+      - ./.env
+    environment:
+      - PORT=3001
+      - MONGO_URL=mongodb://api_db:27017/api
+      - NODE_ENV=production
+      - API_SECRET_KEY=${API_SECRET_KEY}
+      - API_SWAGGER_SERVER_API_URL=${API_SWAGGER_SERVER_API_URL}      
+    depends_on:
+      - api_db
+    networks:
+      - technical-skill-training-network
+
+  api_db:
+    image: mongo:latest
+    container_name: technical-skill-training-api-db
+    volumes:
+      - mongodb_api:/data/db
+    networks:
+      - technical-skill-training-network
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: technical-skill-training-nginx
+    env_file:
+      - ./.env.dev
+      - ./.env
+    ports:
+      - ${NGINX_PORTS:-80:80}
+    environment:
+      - NGINX_HOST=${NGINX_HOST:-localhost.local}
+      - NGINX_PORT=${NGINX_PORT:-80}
+    volumes:
+      - ./nginx/prod:/etc/nginx/templates
+    depends_on:
+      - frontend
+      - api
+    networks:
+      - technical-skill-training-network
+
+volumes:
+  mongodb_api:
+
+networks:
+  technical-skill-training-network:
+    driver: bridge

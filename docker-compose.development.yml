@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+    command: make start
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+
+  api:
+    command: npm run start:dev
+    environment:
+      - PORT=3001
+      - MONGO_URL=mongodb://api_db:27017/api
+      - NODE_ENV=development
+      - API_SECRET_KEY=${API_SECRET_KEY}
+    volumes:
+      - ./api/src:/app/src
+
+  api_db:
+    ports:
+      - '27017:27017'
+
+  nginx:
+    ports:
+      - '3000:3000'
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=3000
+    volumes:
+      - ./nginx/dev:/etc/nginx/templates

@@ -1,0 +1,21 @@
+server {
+  listen ${NGINX_PORT};
+
+  server_name ${NGINX_HOST};
+  gzip on;
+  gzip_types text/plain application/xml text/css application/javascript;
+  gzip_min_length 1000;
+
+  location / {
+    proxy_pass http://frontend:8000;
+  }
+
+  location /api {
+    proxy_pass http://api:3001;
+    rewrite ^/api/(.*) /$1 break;
+  }
+
+  error_log /var/log/nginx/technical-skill-training-error.log;
+  access_log /var/log/nginx/technical-skill-training-access.log;
+
+}

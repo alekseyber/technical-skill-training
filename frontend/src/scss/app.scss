@@ -1,0 +1,26 @@
+$code-background-color: #f6f8fa;
+$code-border: 0.5px solid #ddd;
+$code-border-radius: 3px;
+$default-padding: 8px;
+$default-margin: 8px;
+
+@for $i from 1 through 5 {
+  @each $prefix, $params in (m: margin, mb: margin-bottom, mt: margin-top) {
+    .#{$prefix}-#{$i} {
+      #{$params}: $default-margin * $i;
+    }
+  }
+}
+
+.code {
+  overflow: auto;
+  padding: $default-padding;
+  background-color: $code-background-color;
+  border: $code-border;
+  border-radius: $code-border-radius;
+  max-height: 700px;
+}
+
+.fw-bold {
+  font-weight: 700;
+}

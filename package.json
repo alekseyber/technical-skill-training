@@ -1,0 +1,12 @@
+{
+  "name": "technical-skill-training",
+  "version": "1.0.0",
+  "description": "Tests to test and train technical knowledge",
+  "private": true,
+  "scripts": {
+    "frontend:install": "npm install --prefix frontend",
+    "frontend:update": "npm update --prefix frontend"
+  },
+  "author": "Berestov Aleksey <al_berestov@mail.ru>",
+  "license": "ISC"
+}
