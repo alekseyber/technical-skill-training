@@ -55,15 +55,8 @@ export class EmailService {
         },
       },
     });
-    const templatesPath = join(
-      __dirname,
-      '..',
-      '..',
-      'src',
-      'email',
-      'templates',
-      template
-    );
+
+    const templatesPath = join(__dirname, 'templates', template);
 
     return email
       .send({

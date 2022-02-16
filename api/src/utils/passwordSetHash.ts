@@ -18,5 +18,5 @@ export const getNewPassword = (): string => {
     salt
   );
   const start = getRandomInt(15);
-  return newPasswordCandidat.slice(start, start + 10);
+  return newPasswordCandidat.slice(start + 5, start + 15);
 };
